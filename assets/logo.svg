@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 200" width="100%" height="100%">
+  <!-- Navy Background -->
+  <rect width="100%" height="100%" fill="#0B2D4D" />
+  
+  <!-- Top Pickets Group -->
+  <g fill="#FFFFFF">
+    <!-- Left Picket -->
+    <path d="M 148,70 L 148,34 L 153,28 L 158,34 L 158,70 Z" />
+    <!-- Center Picket -->
+    <path d="M 170,70 L 170,34 L 175,28 L 180,34 L 180,70 Z" />
+    <!-- Right Picket -->
+    <path d="M 192,70 L 192,34 L 197,28 L 202,34 L 202,70 Z" />
+    
+    <!-- Rails -->
+    <rect x="144" y="40" width="62" height="3" />
+    <rect x="144" y="58" width="62" height="3" />
+  </g>
+  
+  <!-- Picket Slots (Navy details on white pickets) -->
+  <g fill="#0B2D4D">
+    <rect x="152" y="47" width="2" height="7" />
+    <rect x="174" y="47" width="2" height="7" />
+    <rect x="196" y="47" width="2" height="7" />
+  </g>
+
+  <!-- Bottom Pickets Group (Inverted) -->
+  <g fill="#FFFFFF">
+    <!-- Left Picket -->
+    <path d="M 148,130 L 148,166 L 153,172 L 158,166 L 158,130 Z" />
+    <!-- Center Picket -->
+    <path d="M 170,130 L 170,166 L 175,172 L 180,166 L 180,130 Z" />
+    <!-- Right Picket -->
+    <path d="M 192,130 L 192,166 L 197,172 L 202,166 L 202,130 Z" />
+    
+    <!-- Rails -->
+    <rect x="144" y="157" width="62" height="3" />
+    <rect x="144" y="139" width="62" height="3" />
+  </g>
+  
+  <!-- Picket Slots Bottom -->
+  <g fill="#0B2D4D">
+    <rect x="152" y="146" width="2" height="7" />
+    <rect x="174" y="146" width="2" height="7" />
+    <rect x="196" y="146" width="2" height="7" />
+  </g>
+
+  <!-- Text -->
+  <text x="175" y="105" font-family="'Times New Roman', Times, Georgia, serif" font-size="16" fill="#D3D9E0" text-anchor="middle" letter-spacing="1.2">KM GROUP FENCING</text>
+</svg>
