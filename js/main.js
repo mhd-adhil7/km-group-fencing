@@ -226,65 +226,96 @@ document.addEventListener('DOMContentLoaded', () => {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('form-name').value.trim();
-    const phone = document.getElementById('form-phone').value.trim();
-    const service = document.getElementById('form-service').value;
-    const location = document.getElementById('form-location').value.trim();
-    const details = document.getElementById('form-message').value.trim();
+    const nameInput = document.getElementById('form-name');
+    const phoneInput = document.getElementById('form-phone');
+    const serviceSelect = document.getElementById('form-service');
+    const locationInput = document.getElementById('form-location');
+    const messageInput = document.getElementById('form-message');
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const serviceVal = serviceSelect.value;
+    const location = locationInput.value.trim();
+    const details = messageInput.value.trim();
 
     // Reset status
     formStatus.style.display = 'none';
     formStatus.className = 'form-status';
 
-    // Simple validation
-    if (!name || !phone || !service || !location) {
-      formStatus.innerText = 'Please fill out all required fields.';
+    function showError(message, element) {
+      formStatus.innerText = message;
       formStatus.classList.add('error');
       formStatus.style.display = 'block';
+      if (element) element.focus();
+    }
+
+    // 1. Required field validation
+    if (!name) {
+      showError('Please enter your full name.', nameInput);
+      return;
+    }
+    if (name.length < 2) {
+      showError('Name must be at least 2 characters long.', nameInput);
+      return;
+    }
+    if (!phone) {
+      showError('Please enter your phone number.', phoneInput);
+      return;
+    }
+    
+    // Indian phone validation: allows +91, 0, or just 10 digits
+    const phoneRegex = /^(?:\+91|0)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone.replace(/\s+/g, ''))) {
+      showError('Please enter a valid 10-digit phone number.', phoneInput);
       return;
     }
 
-    if (phone.length < 10) {
-      formStatus.innerText = 'Please enter a valid 10-digit phone number.';
-      formStatus.classList.add('error');
-      formStatus.style.display = 'block';
+    if (!serviceVal) {
+      showError('Please select the type of fencing needed.', serviceSelect);
+      return;
+    }
+    if (!location) {
+      showError('Please enter your site location.', locationInput);
       return;
     }
 
-    // Success response simulation and WhatsApp redirect
+    // Get readable text for the selected fencing type
+    const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+
+    // Format the professional enquiry message
+    const whatsappMessage = `*KM Group Fencing - New Quotation Request*
+----------------------------------------
+*Full Name:* ${name}
+*Phone Number:* ${phone}
+*Fencing Type:* ${serviceText}
+*Site Location:* ${location}
+*Project Details:* ${details ? details : 'No additional details provided'}
+----------------------------------------
+_Sent from KM Group Fencing Solutions website_`;
+
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/919645298000?text=${encodedMessage}`;
+
+    // Success styling and trigger redirect
     const submitBtn = contactForm.querySelector('.form-submit-btn');
     const originalText = submitBtn.innerHTML;
-    
+
     submitBtn.innerHTML = 'Opening WhatsApp...';
     submitBtn.disabled = true;
 
+    // Open WhatsApp in a new tab/window
+    window.open(whatsappUrl, '_blank');
+
+    formStatus.innerHTML = `<strong>Success!</strong> Your quotation request has been generated. WhatsApp has been opened to chat directly with Riyas K.M.`;
+    formStatus.classList.add('success');
+    formStatus.style.display = 'block';
+
+    // Reset form and button after a short delay
     setTimeout(() => {
-      // Format message for WhatsApp
-      const whatsappText = `Hi KM Group Fencing Solutions,
-
-I would like to request a quote. Here are my details:
-*Name*: ${name}
-*Phone*: ${phone}
-*Fencing Type*: ${service.toUpperCase()}
-*Site Location*: ${location}
-${details ? `*Project Details*: ${details}` : ''}`;
-
-      const encodedText = encodeURIComponent(whatsappText);
-      const whatsappUrl = `https://wa.me/919645298000?text=${encodedText}`;
-      
-      // Open WhatsApp chat in new window/tab
-      window.open(whatsappUrl, '_blank');
-
-      // Show success on screen
-      formStatus.innerHTML = `<strong>Thank you, ${name}!</strong><br>Your quote request has been generated and opened in WhatsApp to chat directly with Riyas K.M at 96452 98000.`;
-      formStatus.classList.add('success');
-      formStatus.style.display = 'block';
-
-      // Reset button and form
       submitBtn.innerHTML = originalText;
       submitBtn.disabled = false;
       contactForm.reset();
-    }, 1200);
+    }, 1500);
   });
 
 });

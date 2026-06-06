@@ -1853,3 +1853,88 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(11, 45, 77, 0.4);
 }
+
+/* ==========================================
+   9. Mobile Sticky Contact Widget (Mobile Only FAB Style)
+   ========================================== */
+.mobile-sticky-contact {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1020; /* Below mobile nav overlay (1050) but above standard content */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fabFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fabFadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sticky-fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.sticky-fab svg {
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.fab-call {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, #F5A623 100%);
+  color: var(--primary-navy);
+}
+
+.fab-call:hover, .fab-call:active {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+}
+
+.fab-call:hover svg, .fab-call:active svg {
+  transform: rotate(15deg);
+}
+
+.fab-whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.fab-whatsapp:hover, .fab-whatsapp:active {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+.fab-whatsapp:hover svg, .fab-whatsapp:active svg {
+  transform: scale(1.1);
+}
+
+/* Hide by default on desktops */
+@media (min-width: 768px) {
+  .mobile-sticky-contact {
+    display: none !important;
+  }
+}
+
+/* Remove bottom padding body */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+
+
