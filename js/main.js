@@ -3,6 +3,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   
   // ==========================================
+  // 0. Reveal Hero Section Content
+  // ==========================================
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    // Reveal hero section content with a short delay after DOM is ready
+    setTimeout(() => {
+      heroSection.classList.add('hero-revealed');
+    }, 100);
+  }
+
+  // ==========================================
   // 1. Sticky Header scroll effect
   // ==========================================
   const header = document.getElementById('header');
